@@ -5,22 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RepairRequest;
 use App\Models\Car;
 use App\Models\Repair;
-use Illuminate\Http\Request;
 
 class RepairController extends Controller
 {
     public function index(Car $car)
     {
+        $this->authorize('viewAny', $car);
         return response()->json(['repairs' => $car->repairs]);
-    }
-
-    public function show(Car $car, Repair $repair)
-    {
-        return response()->json(['repair' => $car->repairs->find($repair)]);
     }
 
     public function store(RepairRequest $request, Car $car)
     {
+        $this->authorize('create', [Repair::class, $car]);
         $repair = $car->repairs()->create($request->validated());
         return response()->json([
             'msg' => 'ok',
@@ -30,6 +26,7 @@ class RepairController extends Controller
 
     public function update(RepairRequest $request, Car $car, Repair $repair)
     {
+        $this->authorize('update', [$car, $repair]);
         $repair->update($request->validated());
         return response()->json([
             'msg' => 'ok',
@@ -39,6 +36,7 @@ class RepairController extends Controller
 
     public function destroy(Car $car, Repair $repair)
     {
+        $this->authorize('delete', [$car, $repair]);
         $repair->delete();
     }
 }
