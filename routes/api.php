@@ -26,7 +26,7 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::apiResource('cars', CarController::class);
-    Route::apiResource('cars.repairs', RepairController::class);
+    Route::apiResource('cars', CarController::class)->except('show');
+    Route::apiResource('cars.repairs', RepairController::class)->except('show');
 });
 

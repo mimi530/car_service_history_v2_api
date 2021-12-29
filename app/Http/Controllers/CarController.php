@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarRequest;
+use App\Http\Resources\CarResource;
 use App\Models\Car;
 
 class CarController extends Controller
@@ -10,24 +11,16 @@ class CarController extends Controller
     public function index()
     {
         return response()->json([
-            'cars' => auth()->user()->cars
-        ]);
-    }
-
-    public function show(Car $car)
-    {
-        $this->authorize('view', $car);
-        return response()->json([
-            'car' => $car
+            'cars' => CarResource::collection(auth()->user()->cars)
         ]);
     }
 
     public function store(CarRequest $request)
     {
-        auth()->user()->cars()->create($request->validated());
+        $car = auth()->user()->cars()->create($request->validated());
         return response()->json([
             'msg' => 'ok',
-            'car' => $car
+            'car' => new CarResource($car)
         ], 201);
     }
 
@@ -37,7 +30,7 @@ class CarController extends Controller
         $car->update($request->validated());
         return response()->json([
             'msg' => 'ok',
-            'car' => $car
+            'car' => new CarResource($car)
         ]);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RepairRequest;
+use App\Http\Resources\RepairResource;
 use App\Models\Car;
 use App\Models\Repair;
 
@@ -10,8 +11,10 @@ class RepairController extends Controller
 {
     public function index(Car $car)
     {
-        $this->authorize('viewAny', $car);
-        return response()->json(['repairs' => $car->repairs]);
+        $this->authorize('viewAny', [Repair::class, $car]);
+        return response()->json([
+            'repairs' => RepairResource::collection($car->repairs)
+        ]);
     }
 
     public function store(RepairRequest $request, Car $car)
@@ -20,7 +23,7 @@ class RepairController extends Controller
         $repair = $car->repairs()->create($request->validated());
         return response()->json([
             'msg' => 'ok',
-            'repair' => $repair
+            'repair' => new RepairResource($repair)
         ], 201);
     }
 
@@ -30,13 +33,17 @@ class RepairController extends Controller
         $repair->update($request->validated());
         return response()->json([
             'msg' => 'ok',
-            'repair' => $repair
+            'repair' => new RepairResource($repair)
         ]);
     }
 
     public function destroy(Car $car, Repair $repair)
     {
+        info('jestem');
         $this->authorize('delete', [$car, $repair]);
         $repair->delete();
+        return response()->json([
+            'msg' => 'ok',
+        ]);
     }
 }
