@@ -37,10 +37,9 @@ class ListTest extends TestCase
     public function testUserCanListRepairs()
     {
         $user = User::factory()->create();
-        $user2 = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $user->id]);
         $repairs = Repair::factory()->count(5)->create(['car_id' => $car->id]);
-        $this->actingAs($user2);
+        $this->actingAs($user);
         $response = $this->getJson(
             route('cars.repairs.index', $car)
         );
