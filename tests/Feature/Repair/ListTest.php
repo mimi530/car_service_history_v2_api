@@ -43,7 +43,7 @@ class ListTest extends TestCase
         $this->actingAs($user2);
         $response = $this->getJson(
             route('cars.repairs.index', $car)
-        )->dump();
+        );
         $response->assertStatus(200)->assertJsonCount(5, 'repairs');
     }
 }
