@@ -17,6 +17,7 @@ class RepairResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'title' => $this->title,
+            'description' => $this->description,
             'date' => $this->date,
             'milage' => $this->milage,
         ];

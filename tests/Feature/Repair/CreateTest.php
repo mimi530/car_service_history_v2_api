@@ -21,7 +21,7 @@ class CreateTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function testUserCannotAddRepairToSomeonesRepair()
+    public function testUserCannotAddRepairToSomeonesCar()
     {
         $user = User::factory()->create();
         $otherUser = User::factory()->create();

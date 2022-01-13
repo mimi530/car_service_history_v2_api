@@ -22,7 +22,7 @@ class DeleteTest extends TestCase
         $response->assertStatus(401);
         $this->assertDatabaseHas('repairs', $repair->getAttributes());
     }
-
+    
     public function testUserCannotDeleteSomeonesRepair()
     {
         $user = User::factory()->create();

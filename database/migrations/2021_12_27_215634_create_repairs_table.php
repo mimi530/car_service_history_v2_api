@@ -17,6 +17,7 @@ class CreateRepairsTable extends Migration
             $table->id();
             $table->string('uuid')->unique();
             $table->string('title');
+            $table->text('description');
             $table->integer('milage');
             $table->date('date');
             $table->foreignId('car_id')->constrained()->onDelete('cascade');

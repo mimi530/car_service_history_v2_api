@@ -27,6 +27,7 @@ class RepairRequest extends FormRequest
             'title' => 'required',
             'milage' => 'required|integer',
             'date' => 'required|date_format:Y-m-d',
+            'description' => '',
         ];
     }
 }

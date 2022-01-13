@@ -25,7 +25,7 @@ class CreateTest extends TestCase
         $this->actingAs($user);
         $invalidCar = [
             "name" => '',
-            "milage" => false
+            "milage" => false,
         ];
         $response = $this->postJson(
             route('cars.store'), $invalidCar

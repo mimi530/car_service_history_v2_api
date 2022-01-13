@@ -13,7 +13,7 @@ class RepairController extends Controller
     {
         $this->authorize('viewAny', [Repair::class, $car]);
         return response()->json([
-            'repairs' => RepairResource::collection($car->repairs)
+            'repairs' => RepairResource::collection($car->repairs->sortByDesc('date'))
         ]);
     }
 
@@ -39,7 +39,6 @@ class RepairController extends Controller
 
     public function destroy(Car $car, Repair $repair)
     {
-        info('jestem');
         $this->authorize('delete', [$car, $repair]);
         $repair->delete();
         return response()->json([

@@ -16,6 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Repair::factory(10)->create();
+        User::factory(10)
+            ->create()
+            ->each(
+            function ($user) {
+                Car::factory(3)
+                    ->create(['user_id' => $user->id])
+                    ->each(
+                        function ($car) {
+                            Repair::factory(5)->create(['car_id' => $car->id]);
+                        }
+                    );
+                }
+            );
     }
 }

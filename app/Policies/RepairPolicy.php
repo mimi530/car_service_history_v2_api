@@ -15,6 +15,7 @@ class RepairPolicy
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
+     * @param  \App\Models\Car  $car
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(User $user, Car $car)
@@ -26,6 +27,7 @@ class RepairPolicy
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
+     * @param  \App\Models\Car  $car
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user, Car $car)
@@ -37,6 +39,7 @@ class RepairPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
+     * @param  \App\Models\Car  $car
      * @param  \App\Models\Repair  $repair
      * @return \Illuminate\Auth\Access\Response|bool
      */
@@ -50,6 +53,7 @@ class RepairPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
+     * @param  \App\Models\Car  $car
      * @param  \App\Models\Repair  $repair
      * @return \Illuminate\Auth\Access\Response|bool
      */
