@@ -14,6 +14,10 @@ class Car extends Model
         'name', 'milage'
     ];
 
+    protected $casts = [
+        'user_id' => 'integer'
+    ];
+
     protected static function boot()
     {
         parent::boot();

@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\Repair;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
@@ -27,7 +28,7 @@ class CreateTest extends TestCase
         $otherUser = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $otherUser->id]);
         $repair = Repair::factory()->make(['car_id' => $car->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->postJson(
             route('cars.repairs.store', $car), $repair->toArray()
         );
@@ -39,7 +40,7 @@ class CreateTest extends TestCase
     {
         $user = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $user->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $invalidRepair = [
             "title" => '',
             "milage" => 'test',
@@ -57,7 +58,7 @@ class CreateTest extends TestCase
         $user = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $user->id]);
         $repair = Repair::factory()->make(['car_id' => $car->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->postJson(
             route('cars.repairs.store', $car), $repair->toArray()
         );

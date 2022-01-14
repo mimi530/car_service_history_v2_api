@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\Repair;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class ListTest extends TestCase
@@ -27,7 +28,7 @@ class ListTest extends TestCase
         $otherUser = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $otherUser->id]);
         $repairs = Repair::factory()->count(5)->create(['car_id' => $car->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->getJson(
             route('cars.repairs.index', $car)
         );
@@ -39,7 +40,7 @@ class ListTest extends TestCase
         $user = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $user->id]);
         $repairs = Repair::factory()->count(5)->create(['car_id' => $car->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->getJson(
             route('cars.repairs.index', $car)
         );

@@ -5,6 +5,7 @@ namespace Tests\Feature\Car;
 use App\Models\Car;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
@@ -28,7 +29,7 @@ class UpdateTest extends TestCase
         $user = User::factory()->create();
         $otherUser = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $otherUser->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->putJson(
             route('cars.update', $car), [
                 'name' => "Nowa nazwa"
@@ -42,7 +43,7 @@ class UpdateTest extends TestCase
     {
         $user = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $user->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->putJson(
             route('cars.update', $car), [
                 'name' => "",
@@ -57,7 +58,7 @@ class UpdateTest extends TestCase
     {
         $user = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $user->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->putJson(
             route('cars.update', $car), [
                 'name' => "Nowa nazwa"

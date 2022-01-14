@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\Repair;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
@@ -33,7 +34,7 @@ class UpdateTest extends TestCase
         $otherUser = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $otherUser->id]);
         $repair = Repair::factory()->create(['car_id' => $car->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->putJson(
             route('cars.repairs.update', compact('car', 'repair')), [
                 'title' => "Nowa nazwa",
@@ -50,7 +51,7 @@ class UpdateTest extends TestCase
         $user = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $user->id]);
         $repair = Repair::factory()->create(['car_id' => $car->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->putJson(
             route('cars.repairs.update', ['car' => $car, 'repair' => $repair]), [
                 'title' => "",
@@ -67,7 +68,7 @@ class UpdateTest extends TestCase
         $user = User::factory()->create();
         $car = Car::factory()->create(['user_id' => $user->id]);
         $repair = Repair::factory()->create(['car_id' => $car->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->putJson(
             route('cars.repairs.update', ['car' => $car, 'repair' => $repair]), [
                 'title' => "Nowa nazwa",

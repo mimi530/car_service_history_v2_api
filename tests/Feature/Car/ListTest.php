@@ -5,6 +5,7 @@ namespace Tests\Feature\Car;
 use App\Models\Car;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class ListTest extends TestCase
@@ -24,7 +25,7 @@ class ListTest extends TestCase
         $user = User::factory()->create();
         $otherUser = User::factory()->create();
         $cars = Car::factory()->count(5)->create(['user_id' => $otherUser->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->getJson(
             route('cars.index')
         );
@@ -35,7 +36,7 @@ class ListTest extends TestCase
     {
         $user = User::factory()->create();
         $car = Car::factory()->count(5)->create(['user_id' => $user->id]);
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         $response = $this->getJson(
             route('cars.index')
         );
