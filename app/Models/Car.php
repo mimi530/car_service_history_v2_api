@@ -35,4 +35,9 @@ class Car extends Model
     {
         return $this->hasMany(Repair::class);
     }
+
+    public function getMilageAttribute($value)
+    {
+        return max($value, $this->repairs->max('milage'));
+    }
 }
