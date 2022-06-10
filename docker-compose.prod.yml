@@ -5,8 +5,8 @@ services:
         build:
             context: ./
             dockerfile: Dockerfile.prod
-        ports:
-            - "8000:80"
+        expose:
+            - "80"
         depends_on:
             - mysql
         environment: 
@@ -15,8 +15,6 @@ services:
         restart: always
     mysql:
         image: 'mysql:8.0'
-        ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             MYSQL_DATABASE: '${DB_DATABASE}'
