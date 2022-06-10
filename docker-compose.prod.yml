@@ -12,6 +12,7 @@ services:
         environment: 
             VIRTUAL_HOST: api.carstory.mdomzalski.pl,www.api.carstory.mdomzalski.pl
             LETSENCRYPT_HOST: api.carstory.mdomzalski.pl,www.api.carstory.mdomzalski.pl
+        restart: always
     mysql:
         image: 'mysql:8.0'
         ports:
@@ -23,6 +24,7 @@ services:
             MYSQL_PASSWORD: '${DB_PASSWORD}'
         volumes:
             - 'db_data:/var/lib/mysql'
+        restart: always
 
 volumes:
     db_data:
