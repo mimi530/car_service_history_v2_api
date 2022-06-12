@@ -25,5 +25,5 @@ RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 RUN sed -i -e "s/html/html\/public/g" /etc/apache2/sites-enabled/000-default.conf
 RUN a2enmod rewrite
 COPY . $APP_HOME
-RUN composer install --no-interaction
+RUN composer install --no-interaction --no-dev
 RUN chown -R www-data:www-data $APP_HOME
