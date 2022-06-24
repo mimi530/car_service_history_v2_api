@@ -25,8 +25,8 @@ class RepairRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'milage' => 'required|integer',
-            'date' => 'required|date_format:Y-m-d',
+            'milage' => 'integer',
+            'date' => 'date_format:Y-m-d',
             'description' => '',
         ];
     }
